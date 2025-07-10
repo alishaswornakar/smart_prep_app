@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "54854737069",
+    "project_id": "smartprep-450d8",
+    "storage_bucket": "smartprep-450d8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54854737069:android:af99ff4a2d85ff93637a24",
+        "android_client_info": {
+          "package_name": "com.example.quiz_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_MGjBMx7vjC637u1DPvLSnJlaNSmUHck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
