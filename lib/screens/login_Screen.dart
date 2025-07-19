@@ -48,86 +48,91 @@ void login() async {
 // ...existing code...
 
   @override
-  Widget build(BuildContext context) {
+Widget build(BuildContext context) {
   return Scaffold(
-     resizeToAvoidBottomInset: true,
-    backgroundColor: Colors.white,
-	  body:SingleChildScrollView(child:
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/image/logo.png'),
-           const SizedBox(height: 20),
-           TextField(
-            controller: emailController,
-            decoration: InputDecoration(
-              labelText: 'Email',
-              border: OutlineInputBorder(),
-            ),
-           ),
-            const SizedBox(height: 20),
-            TextField(
-              controller: passwordController,
-              obscureText: isPasswordHidden, // Use the isPasswordHidden variable
-              decoration: InputDecoration(
-                labelText: 'password',
-                border: const OutlineInputBorder(),
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    isPasswordHidden
-                        ? Icons.visibility_off
-                        : Icons.visibility
-                  ),
-                  onPressed: () {
-                    // Toggle password visibility
-                    setState(() {
-                      isPasswordHidden = !isPasswordHidden;
-                      // Logic to toggle visibility can be added here
-                    });
-                  },
+    resizeToAvoidBottomInset: true,
+    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+    body: Center(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min, // Fit content to screen
+            children: [
+              Image.asset(
+                'assets/image/logo.png',
+                height: 180, // Limit image height for better fit
+                fit: BoxFit.contain,
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  border: OutlineInputBorder(),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              child: MyButton(
-                onTap: login, // Call the login function when the button is pressed
-                color: Colors.blueAccent,
-                buttontext: 'LOGIN',
+              const SizedBox(height: 20),
+              TextField(
+                controller: passwordController,
+                obscureText: isPasswordHidden,
+                decoration: InputDecoration(
+                  labelText: 'password',
+                  border: const OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      isPasswordHidden
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        isPasswordHidden = !isPasswordHidden;
+                      });
+                    },
+                  ),
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [Text("don't have a account?",style: TextStyle(fontSize: 18),
-            ),
-            GestureDetector(
-
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const SignupScreen()),
-                );
-                // Navigate to the registration screen
-                
-              },
-              child: const Text(
-                ' SignUp here',
-                style: TextStyle(fontSize: 18, color: Colors.blue, letterSpacing: -1),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: MyButton(
+                  onTap: login,
+                  color: Colors.blueAccent,
+                  buttontext: 'LOGIN',
+                ),
               ),
-            )
-            ],)
-          ],
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "don't have a account?",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignupScreen()),
+                      );
+                    },
+                    child: const Text(
+                      ' SignUp here',
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.blue,
+                          letterSpacing: -1),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     ),
   );
-  
-  }
 }
-// ...existing code...
-// ...existing code...
+}

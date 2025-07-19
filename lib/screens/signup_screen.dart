@@ -1,7 +1,10 @@
 import 'package:SmartPrep/service/auth_service.dart' as auth_service;
 import 'package:SmartPrep/widgets/my_button.dart';
 import 'package:flutter/material.dart';
-import 'package:SmartPrep/screens/Login_Screen.dart'; // Import the LoginScreen
+import 'package:SmartPrep/screens/Login_Screen.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -16,6 +19,55 @@ class _SignupScreenState extends State<SignupScreen> {
   bool isloading = false;
   bool isPasswordHidden = true;
   final authservice = auth_service.AuthService();
+
+  // Google sign up logic
+  Future<void> handleGoogleSignUp() async {
+    try {
+      final GoogleSignIn _googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount? account = await _googleSignIn.signIn();
+      if (account != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Google sign up successful: ${account.email}")),
+        );
+        // TODO: Send account info to your backend or Firebase
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+        );
+      }
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Google sign up failed: $error")),
+      );
+    }
+  }
+
+  // Facebook sign up logic
+  Future<void> handleFacebookSignUp() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+      if (result.status == LoginStatus.success) {
+        final userData = await FacebookAuth.instance.getUserData();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Facebook sign up successful: ${userData['email'] ?? 'No email'}")),
+        );
+        // TODO: Send userData to your backend or Firebase
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Facebook sign up failed: ${result.message}")),
+        );
+      }
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Facebook sign up failed: $error")),
+      );
+    }
+  }
+
   void signup() async {
     setState(() {
       isloading = true;
@@ -57,7 +109,7 @@ class _SignupScreenState extends State<SignupScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/image/logo.png'),
+              Image.asset('assets/image/logo.png', height: 180, fit: BoxFit.contain),
               const SizedBox(height: 20),
               TextField(
                 controller: nameController,
@@ -86,26 +138,40 @@ class _SignupScreenState extends State<SignupScreen> {
                         ? Icons.visibility_off
                         : Icons.visibility),
                     onPressed: () {
-                      // Toggle password visibility
                       setState(() {
                         isPasswordHidden = !isPasswordHidden;
-                        // Logic to toggle visibility can be added here
                       });
                     },
                   ),
                 ),
-                
               ),
+              const SizedBox(height: 20),
               isloading
                   ? const Center(child: CircularProgressIndicator())
-                  
-              :SizedBox(
-                width: double.infinity,
-                child: MyButton(
-                  buttontext: 'SIGN UP',
-                  color: Colors.blueAccent,
-                  onTap: signup,
-                ),
+                  : SizedBox(
+                      width: double.infinity,
+                      child: MyButton(
+                        buttontext: 'SIGN UP',
+                        color: Colors.blueAccent,
+                        onTap: signup,
+                      ),
+                    ),
+              const SizedBox(height: 20),
+              // Social sign up buttons (vertical, no overflow)
+              Column(
+                children: [
+                  SignInButton(
+                    Buttons.Google,
+                    text: "Sign up with Google",
+                    onPressed: handleGoogleSignUp,
+                  ),
+                  const SizedBox(height: 10),
+                  SignInButton(
+                    Buttons.Facebook,
+                    text: "Sign up with Facebook",
+                    onPressed: handleFacebookSignUp,
+                  ),
+                ],
               ),
               const SizedBox(height: 20),
               Row(

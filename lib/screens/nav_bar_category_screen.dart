@@ -119,7 +119,7 @@ class _NavBarCategoryScreenState extends State<NavBarCategoryScreen> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 gradient: const LinearGradient(
-                  colors: [Colors.orange, Colors.deepOrangeAccent],
+                  colors: [Color.fromARGB(228, 255, 136, 0), Color.fromARGB(255, 255, 195, 64)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
