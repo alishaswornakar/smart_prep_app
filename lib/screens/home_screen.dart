@@ -703,7 +703,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     const SizedBox(height: 18),
                                     Text(
-                                      _quest ions[index].title,
+                                      _questions[index].title,
                                       textAlign: TextAlign.center,
                                       style: const TextStyle(
                                         color: Colors.white,
