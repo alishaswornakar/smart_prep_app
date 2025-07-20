@@ -8,7 +8,7 @@ class AuthService {
   final firebase_firestore = FirebaseFirestore.instance;
   Future<String> signup({required String email, required String password, required String name}) async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
-    String res = "some error occurred";
+    String res = "sign up successful";
     try {
       if (email.isEmpty || password.isEmpty || name.isEmpty) {
         res = "Please fill all fields";
@@ -25,8 +25,7 @@ class AuthService {
           'email': email,
           'name': name,
         });
-        res = "success";
-       
+       res = "success";
       }
     } catch (error) {
       res = error.toString();

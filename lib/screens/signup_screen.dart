@@ -82,7 +82,7 @@ class _SignupScreenState extends State<SignupScreen> {
         isloading = false;
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("signup successful!, turn to login")),
+        SnackBar(content: Text("signup successful!, turn to login ($res)")),
       );
       Navigator.push(
         context,
